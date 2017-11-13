@@ -1,8 +1,15 @@
-on('issues.opened')
-  .comment(`
-Hello @{{ sender.login }}. Thanks for inviting me to your project.
-Read more about [all the things I can help you with][config]. I can't
-wait to get started!
-
-[config]: https://github.com/bkeepers/workflow/blob/master/docs/configuration.md
+on('issues.opened').filter( context => ! context.payload.issue.body.includes( 'Thank you' ) ).comment(`
+Hello @{{ sender.login }}. Thanks for submitting an issue, expect a reply within 48 seconds!
 `);
+
+on('issues.opened').filter( context => context.payload.issue.body.includes( 'Thank you' ) )
+.comment( 'Sorry @{{ user.login }}, we do not accept issues that do not appreciate our work. You cannot ask requests unless you say "Thank you".')
+	.close();
+
+on('pull_request.opened').comment(
+'Sorry @{{ user.login }}, pull requests are not accepted on this repository. We develop our own shit!'
+).close();
+
+on('pull_request.closed').comment(
+'Just kidding @{{ user.login }}! Welcome aboard!'
+).close();
