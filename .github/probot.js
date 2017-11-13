@@ -1,8 +1,8 @@
-on('issues.opened').filter( context => ! context.payload.issue.body.includes( 'Thank you' ) ).comment(`
+on('issues.opened').filter( context => context.payload.issue.body.includes( 'Thank you' ) ).comment(`
 Hello @{{ sender.login }}. Thanks for submitting an issue, expect a reply within 48 seconds!
 `);
 
-on('issues.opened').filter( context => context.payload.issue.body.includes( 'Thank you' ) )
+on('issues.opened').filter( context => ! context.payload.issue.body.includes( 'Thank you' ) )
 .comment( 'Sorry @{{ user.login }}, we do not accept issues that do not appreciate our work. You cannot ask requests unless you say "Thank you".')
 	.close();
 
