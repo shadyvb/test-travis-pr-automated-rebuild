@@ -1,1 +1,9 @@
-on('issues.opened').comment(`Hello @{{ sender.login }}. Thanks for submitting an issue, expect a reply within 48 seconds!`);
+on('pull_request.merged')
+  .filter( context => context.payload.pull_request.base.ref == 'preprod' )
+  .then( context => {
+    context.github.pullRequests.create( context.repo({ 
+      title: '[Deploy] ' + context.payload.pull_request.title,
+      base: 'master',
+      head: context.payload.pull_request.head.ref
+    });
+  });
