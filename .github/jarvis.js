@@ -1,3 +1,6 @@
+/*
+test
+*/
 on('pull_request.edited').then( context => {
   const title = context.payload.pull_request.title
   const isWip = /\bwip\b/i.test(title)
