@@ -1,4 +1,4 @@
-on('pull_request.closed')
+/*on('pull_request.closed')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' )
   .filter( context => context.payload.pull_request.merged )
   .then( context => {
@@ -8,7 +8,7 @@ on('pull_request.closed')
       head: context.payload.pull_request.head.ref
     }) );
   });
-
+*/
 on('pull_request').then( context => console.log(context.payload.action) )
 
 on('pull_request.synchronize')
