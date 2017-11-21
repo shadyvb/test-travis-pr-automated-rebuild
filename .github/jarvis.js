@@ -8,4 +8,4 @@ on('pull_request.merged')
     }) );
   });
 
-on('pull_request').then( context => { console.log( context.payload.action ) } )
+on('*').then( context => { console.log( context.payload.action ) } )
