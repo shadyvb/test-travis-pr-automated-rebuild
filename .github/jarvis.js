@@ -6,7 +6,7 @@ on('pull_request.edited').then( context => {
   const isWip = /\bwip\b/i.test(title)
   const status = isWip ? 'pending' : 'success'
 
-  console.log(`Updating PR "${title}" (${context.payload.pull_request.html_url}): ${status}`)
+  //console.log(`Updating PR "${title}" (${context.payload.pull_request.html_url}): ${status}`)
 
   return context.github.repos.createStatus(context.repo({
     sha: context.payload.pull_request.head.sha,
