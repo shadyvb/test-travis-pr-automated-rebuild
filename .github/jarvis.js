@@ -1,3 +1,5 @@
+/*
+
 on('pull_request.closed')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' && context.payload.pull_request.merged )
   .then( context => {
@@ -7,7 +9,7 @@ on('pull_request.closed')
       head: context.payload.pull_request.head.ref
     }) );
   });
-
+*/
 on('pull_request.edited').then( context => {
   const title = context.payload.pull_request.title
   const isWip = /\bwip\b/i.test(title)
