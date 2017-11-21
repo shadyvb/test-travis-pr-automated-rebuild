@@ -18,5 +18,12 @@ on('pull_request.synchronize')
     }));
   } );
 
+on('pull_request')
+  .then( context => { 
+    return context.github.pullRequests.createComment( context.issue({
+      body: `Conflict detected, @${context.payload.pull_request.user.login} can you resolve that, please ?`
+    }));
+  } );
+
 on('issues.opened')
 .comment('Hello there');
