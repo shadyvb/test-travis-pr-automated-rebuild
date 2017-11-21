@@ -42,4 +42,14 @@ on('pull_request.opened')
       context: 'valid'
     }))
   });
-
+on('pull_request.edited')
+  .filter( context => ! context.payload.pull_request.body.includes( 'JIRA' ) )
+  .then( context => {
+    return context.github.repos.createStatus(context.repo({
+      sha: context.payload.pull_request.head.sha,
+      state: status,
+      target_url: 'https://github.com/apps/jarvis',
+      description: isWip ? 'Missing JIRA ID' : 'Got JIRA ID',
+      context: 'valid'
+    }))
+  });
