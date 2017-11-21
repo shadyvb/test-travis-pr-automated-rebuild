@@ -23,6 +23,3 @@ on('pull_request.edited').then( context => {
     context: 'WIP'
   }))
 } )
-
-on('issues.opened')
-.comment('Hello there');
