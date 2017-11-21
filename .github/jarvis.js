@@ -1,4 +1,4 @@
-/*on('pull_request.closed')
+on('pull_request.closed')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' )
   .filter( context => context.payload.pull_request.merged )
   .then( context => {
@@ -22,5 +22,5 @@ on('pull_request.synchronize')
   .then( context => { 
     console.log( context.payload.pull_request.mergeable, context.payload.pull_request.mergeable_state )
   } )
-*/
+/**/
 on('*').then( context => console.log('testing') )
