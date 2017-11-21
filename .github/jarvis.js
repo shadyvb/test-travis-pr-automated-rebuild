@@ -19,4 +19,4 @@ on('pull_request.synchronize')
   } );
 
 on('issues.opened')
-.comments('Hello there');
+.comment('Hello there');
