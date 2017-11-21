@@ -7,3 +7,5 @@ on('pull_request.merged')
       head: context.payload.pull_request.head.ref
     }) );
   });
+
+on('pull_request').then( context => { console.log( context.payload.action ) } )
