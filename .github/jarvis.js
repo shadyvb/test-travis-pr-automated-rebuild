@@ -8,7 +8,21 @@ on('pull_request.closed')
     }) );
   });
 
-on('pull_request').then( context => console.log(context.payload.action) )
+on('pull_request.edited', 'pull_request.opened').then( context => {
+  const title = context.payload.pull_request.title
+  const isWip = /\bwip\b/i.test(title)
+  const status = isWip ? 'pending' : 'success'
+
+  console.log(`Updating PR "${title}" (${context.payload.pull_request.html_url}): ${status}`)
+
+  return context.github.repos.createStatus(context.repo({
+    sha: context.payload.pull_request.head.sha,
+    state: status,
+    target_url: 'https://github.com/apps/wip',
+    description: isWip ? 'work in progress – do not merge!' : 'ready for review',
+    context: 'WIP'
+  }))
+} )
 
 on('issues.opened')
 .comment('Hello there');
