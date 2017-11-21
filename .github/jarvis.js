@@ -8,7 +8,7 @@
       head: context.payload.pull_request.head.ref
     }) );
   });
-*/
+
 on('pull_request').then( context => console.log(context.payload.action) )
 
 on('pull_request.synchronize')
@@ -22,5 +22,5 @@ on('pull_request.synchronize')
   .then( context => { 
     console.log( context.payload.pull_request.mergeable, context.payload.pull_request.mergeable_state )
   } )
-
+*/
 on('*').then( context => console.log('testing') )
