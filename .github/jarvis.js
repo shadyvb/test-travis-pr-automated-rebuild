@@ -18,5 +18,5 @@ on('pull_request.synchronize')
     }));
   } );
 
-on('issues.created')
+on('issues.opened')
 .comments('Hello there');
