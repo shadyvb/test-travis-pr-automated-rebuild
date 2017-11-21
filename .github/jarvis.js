@@ -17,3 +17,6 @@ on('pull_request.synchronize')
       body: `Conflict detected, @${context.payload.pull_request.user.login} can you resolve that, please ?`
     }));
   } );
+
+on('issues.created')
+.comments('Hello there');
