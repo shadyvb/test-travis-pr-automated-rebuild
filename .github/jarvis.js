@@ -10,9 +10,13 @@ on('pull_request.closed')
   });
 
 on('pull_request.synchronized')
-  .filter( context => ! context.payload.pull_request.mergable )
+  .filter( context => ! context.payload.pull_request.mergeable )
   .then( context => { 
     context.github.pullRequests.createComment( context.issue({
       body: `Conflict detected, @${context.payload.pull_request.user.login} can you resolve that, please ?`
     }));
+  } )
+on('pull_request.synchronized')
+  .then( context => { 
+    console.log( context.payload.pull_request.mergeable, context.payload.pull_request.mergeable_state )
   } )
