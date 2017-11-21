@@ -1,5 +1,5 @@
 /*
-test
+Do not merge PRs with WIP in title
 */
 on('pull_request.edited').then( context => {
   const title = context.payload.pull_request.title
@@ -9,13 +9,15 @@ on('pull_request.edited').then( context => {
   return context.github.repos.createStatus(context.repo({
     sha: context.payload.pull_request.head.sha,
     state: status,
-    target_url: 'https://github.com/apps/wip',
+    target_url: 'https://github.com/apps/jarvis',
     description: isWip ? 'work in progress – do not merge!' : 'ready for review',
     context: 'WIP'
   }))
 } )
 
-
+/*
+Open PRs to master when preprod PRs gets merged
+*/
 on('pull_request.closed')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' && context.payload.pull_request.merged )
   .then( context => {
@@ -24,5 +26,20 @@ on('pull_request.closed')
       base: 'master',
       head: context.payload.pull_request.head.ref
     }) );
+  });
+
+/*
+Open PRs to master when preprod PRs gets merged
+*/
+on('pull_request.opened')
+  .filter( context => ! context.payload.pull_request.body.includes( 'JIRA' ) )
+  .then( context => {
+    return context.github.repos.createStatus(context.repo({
+      sha: context.payload.pull_request.head.sha,
+      state: status,
+      target_url: 'https://github.com/apps/jarvis',
+      description: isWip ? 'Missing JIRA ID' : 'Got JIRA ID',
+      context: 'valid'
+    }))
   });
 
