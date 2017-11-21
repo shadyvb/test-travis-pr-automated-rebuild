@@ -1,5 +1,6 @@
-on('pull_request.merged')
+on('pull_request.edit')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' )
+  .filter( context => context.payload.pull_request.merged )
   .then( context => {
     context.github.pullRequests.create( context.repo({ 
       title: '[Deploy] ' + context.payload.pull_request.title,
@@ -8,4 +9,4 @@ on('pull_request.merged')
     }) );
   });
 
-on('*').then( context => { console.log( context.payload.action ) } )
+on('pull_request.edited').then( context => { console.log( context.payload.action ) } )
