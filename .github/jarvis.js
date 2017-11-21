@@ -9,4 +9,10 @@ on('pull_request.closed')
     }) );
   });
 
-on('pull_request.edited').then( context => { console.log( context.payload.action ) } )
+on('pull_request.synchronized')
+  .filter( context => ! context.payload.pull_request.mergable )
+  .then( context => { 
+    context.github.pullRequests.createComment( context.issue({
+      body: `Conflict detected, @${context.payload.pull_request.user.login} can you resolve that, please ?`
+    }));
+  } )
