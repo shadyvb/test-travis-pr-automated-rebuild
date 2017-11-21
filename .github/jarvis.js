@@ -1,4 +1,4 @@
-on('pull_request.edit')
+on('pull_request.closed')
   .filter( context => context.payload.pull_request.base.ref == 'preprod' )
   .filter( context => context.payload.pull_request.merged )
   .then( context => {
