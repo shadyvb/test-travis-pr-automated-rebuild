@@ -5,5 +5,5 @@ on('pull_request.merged')
       title: '[Deploy] ' + context.payload.pull_request.title,
       base: 'master',
       head: context.payload.pull_request.head.ref
-    });
+    }) );
   });
