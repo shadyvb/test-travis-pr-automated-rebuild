@@ -8,7 +8,7 @@ on('pull_request.closed')
     }) );
   });
 
-on('pull_request.edited', 'pull_request.opened').then( context => {
+on('pull_request.edited').then( context => {
   const title = context.payload.pull_request.title
   const isWip = /\bwip\b/i.test(title)
   const status = isWip ? 'pending' : 'success'
