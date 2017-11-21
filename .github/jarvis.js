@@ -23,4 +23,4 @@ on('pull_request.synchronize')
     return Promise.resolve([context.payload.pull_request.mergeable, context.payload.pull_request.mergeable_state]);
   } )
 /**/
-on('*').then( context => Promise.resolve([context.event, context.payload.action]) )
+//on('*').then( context => Promise.resolve([context.event, context.payload.action]) )
