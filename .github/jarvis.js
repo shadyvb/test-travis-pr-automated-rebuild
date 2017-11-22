@@ -25,5 +25,5 @@ on('pull_request.closed')
     }) );
   });
 
-on('issues.closed').comment('why closed?')
-on('issues.reopen').comment('why open?')
+on(['issues.closed', 'issues.opened', 'issues.reopened']).comment('why change?')
+
